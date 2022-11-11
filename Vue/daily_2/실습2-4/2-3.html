@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .done{
+      color : gray;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Todo List</h2>
+    <input type="text" v-model="todo.content"> <button @click="create(todo.content, todo.completed)">+</button>
+
+    <ul>
+      <li v-for="(todo, index) in filtered_todos":key="index">
+        <label for=`${index}`></label>
+        <input type="checkbox" id=`${index}` @click="check(index, todo.completed)" :checked="todo.completed"><span :class="{done : todo.completed}">{{todo.content}}</span>
+      </li>
+    </ul>
+
+    <button @click="clear()">완료 목록 삭제</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        todo: { content: '', completed: false, clean: false},
+        todos: []
+      },
+      methods: {
+        create: function(content, completed, clean) {
+          const temp = {content: content, completed: completed, clean: clean}
+          this.todos.push(temp)
+          this.todo.content=''
+        },
+
+        check: function(index, completed){
+          
+          this.todos[index].completed = !this.todos[index].completed
+          console.log(index, this.todos[index].completed)
+        },
+
+        clear: function(){
+          this.todos.forEach(todo => {
+            if(todo.completed === true){
+              todo.clean = true
+            }
+          })
+        },
+        
+      }
+      ,
+      computed: {
+        filtered_todos: function() {
+          return this.todos.filter((todo) => {
+            return !todo.clean
+          })
+
+        }
+      }
+      
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p v-text="msg"></p>
+    <p>{{ msg }}</p>
+
+    <p>{{ msg.split('').reverse().join('') }}</p>
+    <p v-html="rawHTML"></p>
+
+  </div>
+
+  <div id="app3">
+    <p v-show="isActive">보이니? 안보이니?</p>
+    <p v-if="isActive">보이니? 안보이니?</p>
+    <p v-else="isActvie">보이니? 안보이니?</p>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        msg: 'Text interpolation',
+        rawHTML: '<span style="color:red"> 빨간 글씨 </span>'
+      },
+    })
+
+    const app3 = new Vue({
+      el: '#app3',
+      data: {
+        isActive: true,
+      }
+    })
+  </script>
+
+
+</body>
+</html>
